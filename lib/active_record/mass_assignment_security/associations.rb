@@ -4,7 +4,12 @@ module ActiveRecord
       def build_record(attributes, options)
         reflection.build_association(attributes, options) do |record|
           attributes = create_scope.except(*(record.changed - [reflection.foreign_key]))
-          record.assign_attributes(attributes, without_protection: true)
+          
+          if record.is_a?(MassAssignmentSecurity::AttributeAssignment)
+            record.assign_attributes(attributes, without_protection: true)
+          else
+            record.assign_attributes(attributes)
+          end
         end
       end
 
