@@ -1,4 +1,6 @@
 class LoosePerson < ActiveRecord::Base
+  include ActiveRecord::MassAssignmentSecurity::Model
+
   self.table_name = 'people'
 
   attr_protected :comments, :best_friend_id, :best_friend_of_id
@@ -12,6 +14,8 @@ class LoosePerson < ActiveRecord::Base
 end
 
 class TightPerson < ActiveRecord::Base
+  include ActiveRecord::MassAssignmentSecurity::Model
+
   self.table_name = 'people'
 
   attr_accessible :first_name, :gender
@@ -27,6 +31,8 @@ class TightPerson < ActiveRecord::Base
 end
 
 class NestedPerson < ActiveRecord::Base
+  include ActiveRecord::MassAssignmentSecurity::Model
+  
   self.table_name = 'people'
 
   attr_accessible :first_name, :best_friend_first_name, :best_friend_attributes

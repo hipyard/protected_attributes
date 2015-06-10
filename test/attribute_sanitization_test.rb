@@ -63,10 +63,12 @@ module MassAssignmentTestHelpers
   end
 
   def with_strict_sanitizer
-    ActiveRecord::Base.mass_assignment_sanitizer = :strict
+    models = ActiveRecord::Base.descendants.select {|d| d.respond_to? :mass_assignment_sanitizer= }
+
+    models.each {|m| m.mass_assignment_sanitizer = :strict }
     yield
   ensure
-    ActiveRecord::Base.mass_assignment_sanitizer = :logger
+    models.each {|m| m.mass_assignment_sanitizer = :logger }
   end
 end
 

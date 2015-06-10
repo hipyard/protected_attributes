@@ -14,3 +14,21 @@ require "active_record/mass_assignment_security/relation"
 require "active_record/mass_assignment_security/validations"
 require "active_record/mass_assignment_security/associations"
 require "active_record/mass_assignment_security/inheritance"
+
+module ActiveRecord
+  module MassAssignmentSecurity
+    module Model
+      extend ActiveSupport::Concern
+
+      included do
+        include ActiveRecord::MassAssignmentSecurity::Core
+        include ActiveRecord::MassAssignmentSecurity::AttributeAssignment
+        include ActiveRecord::MassAssignmentSecurity::Persistence
+        include ActiveRecord::MassAssignmentSecurity::Relation
+        include ActiveRecord::MassAssignmentSecurity::Validations
+        include ActiveRecord::MassAssignmentSecurity::NestedAttributes
+        include ActiveRecord::MassAssignmentSecurity::Inheritance
+      end
+    end
+  end
+end

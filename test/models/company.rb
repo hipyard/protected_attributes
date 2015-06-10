@@ -1,4 +1,6 @@
 class AbstractCompany < ActiveRecord::Base
+  include ActiveRecord::MassAssignmentSecurity::Model
+  
   self.abstract_class = true
 end
 
